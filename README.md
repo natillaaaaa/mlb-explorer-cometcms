@@ -4,6 +4,7 @@
 **Curso:** EIF-511 Arquitectura de Información — Tarea 3: Uso de un CMS headless
 
 **Sitio publicado en Netlify:** https://mlb-explorer-cometcms-nathali.netlify.app
+**Repositorio:** https://github.com/natillaaaaa/mlb-explorer-cometcms
 
 ## Descripción
 
