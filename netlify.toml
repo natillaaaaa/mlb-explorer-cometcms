@@ -1,0 +1,4 @@
+# El sitio se genera en local con `npm run generate` (con el CMS encendido)
+# y se publica la carpeta resultante con `npm run deploy`.
+[build]
+  publish = ".output/public"

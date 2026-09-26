@@ -1,0 +1,19 @@
+{
+  "name": "mlb-explorer",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "cms": "cd cms-local && php -S 127.0.0.1:8000 router.php",
+    "deploy": "netlify deploy --prod --no-build --dir .output/public"
+  },
+  "dependencies": {
+    "nuxt": "^4.5.2",
+    "vue": "^3.5.41",
+    "vue-router": "^5.2.0"
+  }
+}
