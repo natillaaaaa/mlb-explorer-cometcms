@@ -23,17 +23,6 @@ Por eso CometCMS se instaló localmente (versión oficial de https://github.com/
 el CMS del curso basta con cambiar las variables `NUXT_COMET_URL`, `NUXT_COMET_WORKSPACE` y `NUXT_COMET_API_TOKEN`;
 el código no cambia.
 
-## Jerarquía de navegación
-
-```
-Inicio
- └─ Ligas (AL, NL)                       → content type "ligas"
-     └─ Franquicia (Yankees, Red Sox...)  → content type "franquicias"
-         └─ Temporada (año + equipo)      → content type "temporadas"
-```
-
-Además existe una página de **Búsqueda global** (por equipo, año o estadio, con filtros por liga y títulos).
-
 ## Modelo de contenido en CometCMS
 
 Los tres content types están marcados como **Private**, así que solo se pueden leer con un token.
@@ -102,24 +91,6 @@ npm run cms        # CometCMS queda en http://127.0.0.1:8000
 
 Abrir http://127.0.0.1:8000/admin. La primera vez aparece la pantalla de configuración, donde se crea el usuario administrador.
 
-### 3. Cargar los datos
-
-1. En el panel, ir a **Access Tokens → New token** y crear un token con estos permisos:
-   ```json
-   [{ "effect": "allow",
-      "actions": ["schema.create", "schema.read", "content.read", "content.create", "content.publish"],
-      "resources": ["schema:*", "content:*"] }]
-   ```
-2. Abrir `scripts/importar-en-comet.js` y poner ese token en `TOKEN` y el nombre del workspace en `WORKSPACE`.
-3. En el panel del CMS, abrir la consola del navegador (F12), pegar el contenido del archivo y presionar Enter.
-   El script crea los content types y publica las ligas, las franquicias y las temporadas, ya enlazadas entre sí.
-4. Revocar ese token y crear uno **solo de lectura** para el sitio:
-   ```json
-   [{ "effect": "allow", "actions": ["content.read"],
-      "resources": ["content:ligas:*", "content:franquicias:*", "content:temporadas:*"] }]
-   ```
-
-Para cargar otro rango de años: `node scripts/generar-importacion.mjs 2005 2015`.
 
 ### 4. Ejecutar el sitio
 
@@ -131,15 +102,3 @@ npm run dev            # en otra terminal, con el CMS encendido
 
 Abrir http://localhost:3000.
 
-## Publicación en Netlify
-
-El sitio se publica con `npm run generate`, la opción del tutorial que pre-renderiza el sitio.
-Al compilar, Nuxt consulta el CMS y genera todas las páginas (ligas, franquicias y temporadas) ya con los datos.
-El token no queda en los archivos publicados.
-
-Para publicar cambios hechos en el CMS (con el CMS encendido):
-
-```bash
-npm run generate
-npm run deploy     # netlify deploy --prod --no-build --dir .output/public
-```
